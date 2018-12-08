@@ -6,6 +6,11 @@ import json
 import argparse
 import logging
 import os , sys 
+import subprocess,signal
+
+def catch_ctrl_C(sig,frame):
+	print('Ctrl C \nQuit!')
+	exit()
 
 
 class Gid(scrapy.Spider):
@@ -121,7 +126,11 @@ def run_Gid ():
 
 #Save Image links in file with name of search words
 def save_links ():
-	filename='Download Images/'+Gid.search_words.replace('+','_')+'_N'+Gid.num+'_IMG_URLS.txt'
+	directory='download_images'
+	filename=directory+'/'+Gid.search_words.replace('+','_')+'_N'+Gid.num+'_IMG_URLS.txt'
+	#Create the dir
+	if not os.path.exists(directory):
+		os.makedirs(directory)
 	#make list has each url in new line  
 	img_urls_to_store=list()
 	for url in Gid.list_of_img_urls:
@@ -134,17 +143,22 @@ def save_links ():
 
 #Download the images with Wget 
 def download_images():
-	download_answer=input('... Do you want to download images[y/n]: ')
+	#handle ctrl+c
+	signal.signal(signal.SIGINT, catch_ctrl_C)
+
+	download_answer=input('... Download images ? [Y/n] : ')
 	if (download_answer=='y'):
 		downloaded_img=0
 		for link in Gid.list_of_img_urls:
-			down_cmd='wget -q -c --show-progress --read-timeout=10 -P "Download Images/'+Gid.search_words.replace('+','_')+'" '+link
-			out=os.system(down_cmd)
+			#down_cmd='wget -q -c --show-progress --read-timeout=10 -P "Download Images/'+Gid.search_words.replace('+','_')+'" '+link
+			#out=os.system(down_cmd)
+			out=subprocess.call(['wget','-q','-c', '--show-progress', '--read-timeout=10', link, '-Pdownload_images/'+Gid.search_words.replace('+','_')])
 			if(out==0):
 				downloaded_img+=1
 				print("su")
 		print("==================Result=================")
 		print("... Downloaded Images : ",downloaded_img)
+
 
 
 
@@ -165,10 +179,3 @@ if __name__ == '__main__':
 
 	#Download Images
 	download_images()
-
-
-
-
-
-
-
