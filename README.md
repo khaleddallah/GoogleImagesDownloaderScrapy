@@ -16,18 +16,17 @@ git clone https://github.com/khaleddallah/GoogleImageScrapyDownloader.git
 
 ## Usage:
 
-for help
+download <b>NUM</b> of images about specific <b>search words</b> in specific <b>SIZE</b> 
 ```bash
-python gid.py -h
-```  
-to download 
-```bash
-python gid.py \[-h] \[-n NUM] \[-s SIZE] search_words  
-```
-#### positional arguments:  
-  search_words          Set search words  
+python gid.py [-h] [-n NUM] [-s SIZE] search_words  
+```    
 
-#### optional arguments:  
+for help 
+```bash
+python gid.py --help
+```
+<pre>
+  search_words          Set search words  
   -h, --help            show this help message and exit  
   -n NUM, --num NUM     Number of images to download: range between [1 , 800]  
   -s SIZE, --size SIZE  size of images :  
@@ -43,6 +42,12 @@ python gid.py \[-h] \[-n NUM] \[-s SIZE] search_words
                         	4mp    larger than 4MB  
                         		or  6mp, 8mp, 10mp, 12mp, 15mp, 20mp,  
                         			40mp, 70mp   
+</pre>    
+
+for Example:
+```bash
+python gid.py -n 183 -s xga 'Palestine Al Quds'
+```   
                            
 ## Built with:
 Python 3.7  
