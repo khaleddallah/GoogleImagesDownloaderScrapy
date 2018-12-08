@@ -1,4 +1,6 @@
 #! /usr/bin/env python
+# Author : Khaled Dallah
+# Date : 8-12-2018
 
 import scrapy
 from scrapy.crawler import CrawlerProcess
