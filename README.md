@@ -1,4 +1,4 @@
-# Google Images Scrapy Downloader
+# Google Images Downloader using Scrapy
 Python Scrapy project to download original images in full quality from Google_Images 
 
 ## Installation
